@@ -63,16 +63,24 @@
                 }
             }
 
+            function strikethru() {
+
+            }
+
             function registerItem(str, className) {
                 var elem = document.createElement("div");
                 elem.innerHTML = "<li> " + str;
                 elem.className = "alert-message" + (className ? " "  + className : "");
+                elem.addEventListener("click", function( event ) {
+                  // display the current click count inside the clicked div
+                  event.target.innerHTML = "<del>" + event.target.innerHTML + "</del>";
+                }, false);
                 todoList.appendChild(elem);
             }
 
             function clearTodoList() {
                 document.getElementById('todo-list').value = '';
-                while(todoList.firstChild){
+                while (todoList.firstChild){
                     todoList.removeChild(todoList.firstChild);
                 }
             }
@@ -86,10 +94,9 @@
             }
 
             function submitItem() {
-                var item = document.getElementById('input').value;
-                // alert("here="+item);
-                document.getElementById('input').value = '';
-                registerItem(item);
+                var item = document.getElementById('input').value;  // Obtain the value of the input field
+                document.getElementById('input').value = '';        // Clear the input field
+                registerItem(item);                                 // Register input in the TODO list
             }
 
             document.getElementById("save").addEventListener("click", saveToFile);
