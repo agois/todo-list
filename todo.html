@@ -28,8 +28,8 @@
         <div id="todo-list" class="todo"></div>
 
         <div class="input">
-            <!-- http://stackoverflow.com/questions/2099661/enter-key-in-textarea -->
-            <textarea id="input" cols="80" rows="1" wrap="soft" onkeypress="onTestChange();"></textarea>
+            <!-- Taken from http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box -->
+            <textarea id="input" cols="80" rows="1" wrap="soft" onkeypress="onTestChange(event);"></textarea>
         </div>
 
         <div class="actions">
@@ -51,11 +51,11 @@
                 input = document.getElementById("file"),
                 running = false;
 
-            function onTestChange() {
-                var key = window.event.keyCode;
+            function onTestChange(key) {
+                key = key || window.event;
 
                 // If the user has pressed enter
-                if (key == 13) {
+                if (key.keyCode == 13) {
                     submitItem();
                     return false;
                 } else {
