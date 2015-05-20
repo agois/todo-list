@@ -1,0 +1,5 @@
+Issues: Chrome and Firefox have different behavior. Sometimes I had to change my code so it could work on both browsers. I didn’t test in IE or Safari.
+References:
+- https://developer.mozilla.org
+- http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del
