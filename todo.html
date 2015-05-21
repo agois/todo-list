@@ -35,17 +35,45 @@
             <input type="button" id="clear" value="CLEAR" class="btn"/> <!-- It was not in the spec but I added a clear button so user can erase all items at once, a handler is attached later on the file  -->
         </div>
 
-        <div class="actions">
-            </br></br></br>
-            <p>Save to local machine using buttons below.</p>
-            <input type="file" id="file" class="input-file span5"/>
-            <input type="button" id="save" value="SAVE" class="btn primary"/>
-        </div>
+        <table>
+            <tr>
+                <td>Filename to Save As:</td>
+                <td><input id="inputFileNameToSaveAs"></input></td>
+                <td><button onclick="saveTextAsFile()">Save Text to File</button></td>
+            </tr>
+        </table>
 
         <!-- This is where all the javascript code was put  -->
         <script type="text/javascript">  
 
             var todoList = document.getElementById("todo-list"); // Global variable for the TODO list seems to make sense to be global as used in more than one function
+
+            // From https://thiscouldbebetter.wordpress.com/2012/12/18/loading-editing-and-saving-a-text-file-in-html5-using-javascrip/
+            function saveTextAsFile()
+            {
+                var textToWrite = document.getElementById("todo-list").innerHTML; // get contents of todo as html
+                var textFileAsBlob = new Blob([textToWrite], {type:'text/plain'}); // create a file blob with contents
+                var fileNameToSaveAs = document.getElementById("inputFileNameToSaveAs").value; // get file name given
+
+                var downloadLink = document.createElement("a"); // create a download link
+                downloadLink.download = fileNameToSaveAs; // fill name
+                downloadLink.innerHTML = "Download File";
+                if (window.webkitURL != null) {
+                    // Chrome allows the link to be clicked
+                    // without actually adding it to the DOM.
+                    downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+                }
+                else {
+                    // Firefox requires the link to be added to the DOM
+                    // before it can be clicked.
+                    downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                    downloadLink.onclick = destroyClickedElement;
+                    downloadLink.style.display = "none";
+                    document.body.appendChild(downloadLink);
+                }
+
+                downloadLink.click(); // simulate a click to download link
+            }
 
             // This is the method used to handle the key presses in the TODO input area. It is used to handle ENTER key press
             function onInputKeyPress(key) {
@@ -68,10 +96,6 @@
                 }
             }
 
-            function saveToFile() {
-                alert("saved");
-            }
-
             function submitItem() {
                 var item = document.getElementById('input').value;  // Obtain the value of the input field
                 document.getElementById('input').value = '';        // Clear the input field
@@ -89,7 +113,6 @@
                 todoList.appendChild(elem); // Add the new item to the end of the todolist div
             }
 
-            document.getElementById("save").addEventListener("click", saveToFile);
             document.getElementById("submit").addEventListener("click", submitItem);   // Event listener for the submit button
             document.getElementById("clear").addEventListener("click", clearTodoList); // Event listenter for the clear button
         </script>

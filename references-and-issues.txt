@@ -6,3 +6,4 @@ References:
 - https://developer.mozilla.org
 - http://stackoverflow.com/questions/155188/trigger-a-button-click-with-javascript-on-the-enter-key-in-a-text-box
 - https://developer.mozilla.org/en-US/docs/Web/HTML/Element/del
+- https://thiscouldbebetter.wordpress.com/2012/12/18/loading-editing-and-saving-a-text-file-in-html5-using-javascrip/
